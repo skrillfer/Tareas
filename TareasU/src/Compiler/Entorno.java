@@ -25,6 +25,7 @@ public class Entorno {
     /*Agregar*/
     public void put(String s, Simbolo sim) {
         tabla.put(s, sim);
+        System.out.println("valor:"+sim.name);
     }
 
     /*Obtener*/
@@ -38,17 +39,5 @@ public class Entorno {
         return null;
     }
 
-    public void ImprimirSimbolos(int num) {
-        
-        System.out.println("\nEntorno "+num);
-            
-        Object valor;
-        Enumeration ex = this.tabla.elements();
-        while (ex.hasMoreElements()) {
-            valor = ex.nextElement();
-            System.out.println("Valor : " + ((Simbolo)valor).name);
-        }
-
-
-    }
+    
 }

@@ -23,8 +23,12 @@ INICIO ::= {:this.sup=null;:} B;
 B    ::= alla   {:
                     this.guardado = this.sup; 
                     this.sup = new Entorno(sup);
+
+                    System.out.println("Entorno:"+this.contador);
+                    this.contador++;
+
                     
-                :}L  {:this.sup.ImprimirSimbolos(this.contador);  this.contador++; :} clla
+                :}L  clla
                 {:
                     this.sup = this.guardado;
 
