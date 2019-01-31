@@ -1,0 +1,49 @@
+package Analizadores; 
+
+import Compiler.*;
+import java_cup.runtime.*;
+import java.util.*;
+
+
+action code {:
+    //se declaran variables globales etc.
+    public Entorno sup;
+    public Entorno guardado;
+    public int contador = 0;
+:}
+
+terminal token alla,clla,id,pyc,inT,chaR,booL;
+
+non terminal INICIO,B,L,INST,T;
+
+start with INICIO;
+
+INICIO ::= {:this.sup=null;:} B;
+ 
+B    ::= alla   {:
+                    this.guardado = this.sup; 
+                    this.sup = new Entorno(sup);
+                    
+                :}L  {:this.sup.ImprimirSimbolos(this.contador);  this.contador++; :} clla
+                {:
+                    this.sup = this.guardado;
+
+                :};
+
+L    ::= L INST
+        |INST;
+
+INST ::= T:tipo id:iden pyc {:
+                    Simbolo s = new Simbolo();
+                    s.type = (String)tipo;
+                    s.name = iden.getCadena();
+                    this.sup.put(iden.getCadena(), s);
+
+                  :}
+        |B      {:    :};
+
+T    ::=  inT:x   {: RESULT = x.getCadena(); :} 
+        | chaR:x  {: RESULT = x.getCadena(); :} 
+        | booL:x  {: RESULT = x.getCadena(); :} ;
+
+
